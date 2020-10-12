@@ -14,6 +14,10 @@ post2 = Post(id=2,
              name='John',
              body='Lorem Ipsum')
 
+updated_fields = {'name': 'Maryam',
+                  'photo_url': 'https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?auto=compress&cs=tinysrgb&dpr=1&h=100&w=100',
+                  'body': 'Lorem Ipsum'}
+
 posts = [post1, post2]
 
 class PostStore:
@@ -33,7 +37,20 @@ class PostStore:
                 break
 
         return result
+
+    def delete(self, id):
+        posts.remove(id)
+
+    def update(self, id, fields, store):
+        post = self.get_by_id(id)
+
+        post.name = fields['name']
+
+        post.photo_url = fields['photo_url']
+
+        post.body = fields['body']
         
+        store.update(1, updated_fields)
 
 
 
