@@ -28,7 +28,29 @@ def get_by_id_should_retrieve_same_object():
     assert second_post is retrieved_second_post
 
 
+def update_should_modify_object():
+    fields_to_update = {
+        'photo_url': 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        'name': 'Alex', 
+        'body': 'Interesting topic right here!'
+    }
+
+    # update second post
+    post_store.update(2, fields_to_update)
+    
+    assert post_store.get_by_id(2).name == 'Alex'
+    assert post_store.get_by_id(2).body == 'Interesting topic right here!'
+
+
+def delete_should_remove_object():
+    post_store.delete(2)
+
+    assert len(post_store.get_all()) == 1
+    assert post_store.get_all()[0].id == 1
+
 store_should_add_posts()
 get_by_id_should_retrieve_same_object()
+update_should_modify_object()
+delete_should_remove_object()
 
 print('All tests passed successfully!')
